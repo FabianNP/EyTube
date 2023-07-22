@@ -7,7 +7,7 @@ const VideoSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: trusted
+    required: true
   },
   imgUrl: {
     type: String,
