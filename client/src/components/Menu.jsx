@@ -1,4 +1,5 @@
 import { styled } from "styled-components"
+import {Link} from "react-router-dom"
 import EyTube from "./img/youtube.png"
 import HomeIcon from "@mui/icons-material/Home"
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
@@ -74,15 +75,17 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `
 
-export const Menu = ({ setDarkMode }) => {
+export const Menu = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
       <Wrapper>
-        <Logo>
-          <Img src={EyTube}/>
-          EyTube
-        </Logo>
+        <Link to="/" style={{textDecoration: "none", color: "inherit"}}>
+          <Logo>
+            <Img src={EyTube}/>
+            EyTube
+          </Logo>
+        </Link>
         <Item>
           <HomeIcon />
           Home
@@ -152,7 +155,7 @@ export const Menu = ({ setDarkMode }) => {
         </Item>
         <Item onClick={() => setDarkMode(prev => !prev)}>
           <SettingsBrightnessOutlinedIcon />
-          Light Mode
+          {darkMode ? "Light" : "Dark"} Mode
         </Item>
       </Wrapper>
     </Container>

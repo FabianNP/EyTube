@@ -27,12 +27,16 @@ const Search = styled.div`
   justify-content: space-between;
   padding: 5px;
   border: 1px solid #ccc;
-  border-radius: 30px;
+  border-radius: 5px;
+  color: ${({theme}) => theme.textSoft};
 `
 const Input = styled.input`
+  color: ${({theme}) => theme.text};
   border: none;
   background-color: transparent;
   width: 90%;
+  font-size: 16px;
+  padding: 0 7px;
   &:focus {
     outline: none;
   }
