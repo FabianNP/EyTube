@@ -5,20 +5,25 @@ import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutl
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import Bs from "../components/img/BBS.png"
-import Comment from '../components/Comment';
 import Comments from '../components/Comments';
+import Card from "../components/Card"
 
 
 const Container = styled.div`
   display: flex;
   gap: 24px;
+  flex-wrap: wrap;
 `
 
 const Content = styled.div`
-  flex: 6;
+  flex: 5;
 `
 
 const VideoWrapper = styled.div`
+  max-width: 1000px;
+  min-width: 620px;
+  height: 520px;
+  margin: 0 auto;
 `
 
 const Title = styled.div`
@@ -80,6 +85,7 @@ const ChannelDetail = styled.div`
   display: flex;
   flex-direction: column;
   color: ${({theme}) => theme.text};
+  /* margin-left: 10px; */
 `
 
 const ChannelName = styled.span`
@@ -124,7 +130,7 @@ const Video = () => {
           </iframe> */}
           <iframe 
             width="100%" 
-            height="720" 
+            height="100%" 
             src="https://www.youtube.com/embed/bef8QLNHubw" 
             title="YouTube video player" 
             style={{ border: 0 }}
@@ -161,7 +167,31 @@ const Video = () => {
         <Hr/>
         <Comments/>
       </Content>
-      <Recommendation>recommendation</Recommendation>
+      <Recommendation>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+        <Card type="sm"/>
+      </Recommendation>
     </Container>
   )
 }
