@@ -96,14 +96,18 @@ export const Menu = ({ darkMode, setDarkMode }) => {
           <HomeIcon />
           Home
         </Item>
-        <Item>
-          <ExploreOutlinedIcon />
-          Explore
-        </Item>
-        <Item>
-          <SubscriptionsOutlinedIcon />
-          Subscription
-        </Item>
+        <Link to="trends" style={{textDecoration: "none", color: "inherit"}}>
+          <Item>
+            <ExploreOutlinedIcon />
+            Explore
+          </Item>
+        </Link>
+        <Link to="subscription" style={{textDecoration: "none", color: "inherit"}}>
+          <Item>
+            <SubscriptionsOutlinedIcon />
+            Subscription
+          </Item>
+        </Link>
         <Hr />
         <Item>
           <VideoLibraryOutlinedIcon />

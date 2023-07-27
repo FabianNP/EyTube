@@ -69,8 +69,8 @@ export const addView = async (req, res, next) => {
 
 export const random = async (req, res, next) => {
   try{
-    const videos = await Video.aggregate([{$sample:{ size: 1 }}])
-    res.status(200).json(videos)
+    const videos = await Video.aggregate([{$sample:{ size: 3 }}])
+    res.header("Access-Control-Allow-Origin", "*").status(200).json(videos)
   }catch(err){
     next(err)
   }

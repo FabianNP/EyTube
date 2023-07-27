@@ -1,6 +1,9 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom"
 import Bs from "./img/BBS.png"
+import {format} from "timeago.js"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Container = styled.div`
   width: ${(props) => props.type === "sm" && "340px" };
@@ -52,17 +55,28 @@ const Info = styled.div`
   color: ${({theme}) => theme.textSoft};
 `
 
-const Card = ({type}) => {
+const Card = ({type, video}) => {
+  const [channel, setChannel] = useState({})
+
+  useEffect(() => {
+    const fetchChannel = async () => {
+      const res = await axios.get(`api/users/find/${video.userId}`)
+      console.log(res)
+      setChannel(res.data)
+    }
+    fetchChannel()
+  }, [video.userId])
+
   return (
     <Link to="video/test" style={{textDecoration: "none"}}>
       <Container type={type}>
-        <Img type={type} src={"https://www.kennedy-center.org/globalassets/education/resources-for-educators/classroom-resources/artsedge/media/art-space/art-space-169.jpg"}/>
+        <Img type={type} src={video.imgUrl}/>
         <Details type={type}>
-          <ChannelImage type={type} src={Bs}/>
+          <ChannelImage type={type} src={channel.img}/>
           <Texts>
-            <Title>Test Video</Title> 
-            <ChannelName>Adan</ChannelName>
-            <Info>660,908 • 1 day ago </Info>
+            <Title>{video.title}</Title> 
+            <ChannelName>{channel.name}</ChannelName>
+            <Info>{video.views} • {format(video.createdAt)} </Info>
           </Texts>
         </Details>
       </Container>
