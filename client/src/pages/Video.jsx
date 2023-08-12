@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
@@ -7,6 +7,12 @@ import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import Bs from "../components/img/BBS.png"
 import Comments from '../components/Comments';
 import Card from "../components/Card"
+import { useSelector, useDispatch } from "react-redux"
+import { useLocation } from 'react-router-dom';
+import axios from "axios"
+// import api from "../utils/api"
+import { fetchSuccess } from "../redux/videoSlice"
+import { format } from 'timeago.js';
 
 
 const Container = styled.div`
@@ -115,6 +121,36 @@ const Subscribe = styled.button`
 
 
 const Video = () => {
+  const { currentUser } = useSelector((state) => state.user)
+  const { currentVideo } = useSelector((state) => state.video)
+  const dispatch = useDispatch()
+
+  const path = useLocation().pathname.split("/")[2]
+  const [channel, setChannel] = useState({})
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log(path)
+        // const videoRes = await axios.get(`api/videos/find/${path}`)
+        const videoRes = await axios.get(`/api/videos/find/${path}`)
+        console.log(videoRes)
+        const channelRes = await axios.get(`/api/users/find/${videoRes.data.userId}`)
+        
+        // console.log(videoRes?.userId)
+        // console.log(channelRes
+        
+        // setChannel(channelRes)
+        dispatch(fetchSuccess(videoRes.data))
+
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [path, dispatch])
+
+
   return (
     <Container>
       <Content>
@@ -140,11 +176,11 @@ const Video = () => {
 
           </iframe>
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{currentVideo?.title}</Title>
         <Details>
-          <Info>7,948,154  •  Jun 22, 2022</Info>
+          <Info>{currentVideo?.views} views  •  {format(currentVideo?.createdAt)}</Info>
           <Buttons>
-            <Button><ThumbUpOutlinedIcon /> 123</Button>
+            <Button><ThumbUpOutlinedIcon /> {currentVideo?.likes?.length}</Button>
             <Button><ThumbDownOffAltOutlinedIcon /> Dislike </Button>
             <Button><ReplyOutlinedIcon /> Share </Button>
             <Button><AddTaskOutlinedIcon /> Save </Button>
@@ -153,12 +189,12 @@ const Video = () => {
         <Hr/>
         <Channel>
           <ChannelInfo>
-            <Img src={Bs}/>
+            <Img src={channel?.ing}/>
             <ChannelDetail>
-              <ChannelName>Adan</ChannelName>
-              <ChannelCounter>200 k subscribers</ChannelCounter>
+              <ChannelName>{channel?.name}</ChannelName>
+              <ChannelCounter>{channel?.subscribers} subscribers</ChannelCounter>
               <Description>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro reprehenderit obcaecati placeat ex sapiente earum molestiae nulla, id soluta. Natus maxime odio laborum! Suscipit esse voluptatem ad minus cupiditate mollitia.
+                {currentVideo?.desc}  
               </Description>
             </ChannelDetail>
           </ChannelInfo>
@@ -167,7 +203,7 @@ const Video = () => {
         <Hr/>
         <Comments/>
       </Content>
-      <Recommendation>
+      {/* <Recommendation>
         <Card type="sm"/>
         <Card type="sm"/>
         <Card type="sm"/>
@@ -191,7 +227,7 @@ const Video = () => {
         <Card type="sm"/>
         <Card type="sm"/>
         <Card type="sm"/>
-      </Recommendation>
+      </Recommendation> */}
     </Container>
   )
 }

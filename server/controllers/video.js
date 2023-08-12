@@ -50,6 +50,7 @@ export const deleteVideo = async (req, res, next) => {
 export const getVideo = async (req, res, next) => {
   try{
     const video = await Video.findById(req.params.id)
+    console.log(req.params.id)
     res.status(200).json(video)
   }catch(err){
     next(err)
@@ -70,7 +71,7 @@ export const addView = async (req, res, next) => {
 export const random = async (req, res, next) => {
   try{
     const videos = await Video.aggregate([{$sample:{ size: 3 }}])
-    res.header("Access-Control-Allow-Origin", "*").status(200).json(videos)
+    res.status(200).json(videos)
   }catch(err){
     next(err)
   }

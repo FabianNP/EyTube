@@ -104,7 +104,7 @@ export const Menu = ({ darkMode, setDarkMode }) => {
             Explore
           </Item>
         </Link>
-        <Link to="subscription" style={{textDecoration: "none", color: "inherit"}}>
+        <Link to="subscriptions" style={{textDecoration: "none", color: "inherit"}}>
           <Item>
             <SubscriptionsOutlinedIcon />
             Subscription
